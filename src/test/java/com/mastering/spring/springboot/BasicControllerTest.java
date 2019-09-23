@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,5 +30,13 @@ public class BasicControllerTest {
         )
         .andExpect(status().isOk())
         .andExpect(content().string(equalTo("Hello World")));
+    }
+
+    @Test
+    public void welcomeWithObject() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/welcome-with-object")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Hello World")));
     }
 }
